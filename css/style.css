@@ -1,5 +1,5 @@
 html,body{margin:0}img{max-width:100%;display:block}
-/* Заголовки: Oswald (Anton не поддерживает кириллицу). Текст: Manrope. */
+/* Заголовки: Russo One (одно начертание). Текст: Exo 2, тонкое 300. */
 
 /* Layout: одна картинка лежит под всей страницей и растянута на всю её длину, прокручивается вместе со страницей.
    Первый экран прозрачный — видно верх картинки. Дальше всё закрыто тёмным, и только в словах «ТОКАРКА» и «СВАРКА»
@@ -13,15 +13,15 @@ html,body{margin:0}img{max-width:100%;display:block}
   --g-3:linear-gradient(137deg,#FFFFFF 0%,#FFD36A 42%,#C9581A 100%);
   /* текст: тёплый белый, ~17:1 на чёрном, ~6.8:1 на синем */
   --text:#F4EEE2; --muted:rgba(244,238,226,.66); --line:rgba(244,238,226,.14);
-  --display:"Oswald","Arial Narrow",Impact,sans-serif;
-  --body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --display:"Russo One","Arial Black",sans-serif;
+  --body:"Exo 2",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --wrap:1120px; --r:2px;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+body{background:var(--black);color:var(--text);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--spark);outline-offset:3px}
 section{overflow-x:clip}
@@ -36,7 +36,7 @@ main > section,footer{margin-top:2px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 h1,h2,h3{margin:0;text-wrap:balance}
-h2{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(32px,5.4vw,58px);line-height:1;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(26px,4.4vw,46px);line-height:1.04;letter-spacing:0}
 h3{font-weight:600;font-size:clamp(18px,2.2vw,21px);line-height:1.25;letter-spacing:-.01em}
 p{margin:0;max-width:62ch}
 .eyebrow{font-weight:300;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--muted)}
@@ -62,7 +62,7 @@ p{margin:0;max-width:62ch}
 /* ===== ПЕРВЫЙ ЭКРАН ===== */
 .hero{position:relative;isolation:isolate;display:grid;grid-template-rows:auto 1fr;min-height:min(100svh,940px)}
 .hero > .hnav,.hero > .hcopy{position:relative;z-index:1}
-.lids{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:repeat(8,1fr);pointer-events:none}
+.lids{position:absolute;inset:0;z-index:0;overflow:hidden;display:grid;grid-template-columns:repeat(8,1fr);pointer-events:none}
 .lid{background:var(--black);opacity:0;transform-origin:50% 0;margin-right:-1px}
 .is-entering .lid{opacity:1}
 .is-entering :is(.hnav > *,.hcopy h1,.hcopy .lead,.facts,.dock){opacity:0}
@@ -74,14 +74,14 @@ p{margin:0;max-width:62ch}
 .hcopy{align-self:end;display:grid;gap:22px;
   padding:clamp(200px,50vw,420px) max(16px,env(safe-area-inset-right,0px)) 32px max(16px,env(safe-area-inset-left,0px))}
 .hcopy .inner{max-width:var(--wrap);width:100%;margin-inline:auto;display:grid;gap:22px}
-.hcopy h1{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(46px,8.4vw,112px);line-height:.98;letter-spacing:.005em;max-width:14ch;text-shadow:0 4px 40px rgba(8,17,14,.55)}
+.hcopy h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(34px,6.2vw,80px);line-height:1.02;letter-spacing:0;max-width:15ch;text-shadow:0 4px 40px rgba(8,17,14,.55)}
 .hcopy .lead{color:rgba(244,238,226,.85);max-width:46ch}
 .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;font-weight:300;color:rgba(244,238,226,.78);font-variant-numeric:tabular-nums;text-transform:uppercase;letter-spacing:.02em}
 .facts b{font-weight:500;color:var(--text)}
 
 /* ===== ВЫРЕЗАННОЕ СЛОВО (токарка, сварка) ===== */
 .cutrow{display:block;width:100%;height:auto;margin-bottom:-1px}
-.cutrow text{font-family:var(--display);font-weight:700;text-transform:uppercase}
+.cutrow text{font-family:var(--display);font-weight:400;text-transform:uppercase}
 
 /* ===== СВЕЧЕНИЕ ===== */
 .glow{position:relative;isolation:isolate;--g:var(--g-1)}
@@ -107,11 +107,11 @@ p{margin:0;max-width:62ch}
 
 .batch{margin-top:56px}
 .batch .glow-in{padding:30px 26px;gap:16px}
-.batch h3{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(24px,3.4vw,34px);line-height:1.05;letter-spacing:.01em}
+.batch h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.8vw,30px);line-height:1.08;letter-spacing:0}
 
 /* шаги */
 .steps{list-style:none;margin:0;padding:0 6px;display:grid;gap:36px}
-.steps .num{font:600 48px/1 var(--display);color:var(--text);margin-bottom:20px}
+.steps .num{font:400 40px/1 var(--display);color:var(--text);margin-bottom:20px}
 
 /* фото-заглушки */
 .shot{margin:0;display:grid;gap:12px;align-content:start}
@@ -150,7 +150,7 @@ blockquote{margin:32px 0 0;padding:0 0 0 18px;border-left:2px solid var(--spark)
 /* цены */
 .row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:18px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums;font-weight:300}
 .row:last-child{border-bottom:1px solid var(--line)}
-.row b{font-family:var(--display);font-weight:500;font-size:clamp(20px,3vw,28px);text-align:right}
+.row b{font-family:var(--display);font-weight:400;font-size:clamp(17px,2.4vw,22px);text-align:right}
 
 /* FAQ */
 .faqcols > *{min-width:0}
