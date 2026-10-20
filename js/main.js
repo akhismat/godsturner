@@ -136,3 +136,27 @@ document.querySelectorAll("[data-carousel]").forEach(root=>{
   addEventListener("resize",update);
   update();
 });
+
+/* ===== Анимация при открытии (как в примере с маникюром) =====
+   Чёрные шторки над фоном первого экрана по очереди уезжают вверх,
+   затем поднимаются шапка, заголовок, подпись и кнопки. */
+(function(){
+  var root=document.documentElement;
+  if(!root.classList.contains('is-entering')) return;
+  var EXPO='cubic-bezier(0.16,1,0.3,1)', QUART='cubic-bezier(0.76,0,0.24,1)';
+  Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(function(r){setTimeout(r,700)})]).then(function(){
+    if(!root.classList.contains('is-entering')) return;
+    window.__entrance=true;
+    var anims=[],q=function(sel){return document.querySelector(sel)};
+    function play(el,kf,t,d,e){ if(el) anims.push(el.animate(kf,{delay:t*1000,duration:d*1000,easing:e||EXPO,fill:'both'})); }
+    function rise(px){ return [{opacity:0,transform:'translateY('+px+'px)'},{opacity:1,transform:'none'}]; }
+    [].forEach.call(document.querySelectorAll('.lid'),function(l,i){ play(l,[{opacity:1,transform:'scaleY(1)'},{opacity:1,transform:'scaleY(0)'}],.06+i*.05,1.0,QUART); });
+    [].forEach.call(document.querySelectorAll('.hnav > *'),function(el,i){ play(el,rise(6),.50+i*.12,.6); });
+    play(q('.hcopy h1'),[{opacity:1,transform:'translateY(100%)',clipPath:'inset(-100% -8px 100% -8px)'},{opacity:1,transform:'none',clipPath:'inset(-20% -8px -20% -8px)'}],.80,1.0);
+    play(q('.hcopy .lead'),rise(8),1.05,.7);
+    play(q('.facts'),rise(8),1.15,.7);
+    play(q('.dock'),rise(16),1.30,.7);
+    root.classList.remove('is-entering');
+    Promise.all(anims.map(function(a){return a.finished})).then(function(){anims.forEach(function(a){a.cancel()})},function(){});
+  });
+})();

@@ -26,7 +26,12 @@
 <!-- 1. Первый экран -->
 <div class="page">
 <div class="page-bg" id="pageBg" aria-hidden="true"></div>
+<script>
+/* вход: прячем первый экран до первой отрисовки, дальше его раскрывает анимация в конце страницы */
+(function(d){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'animate' in Element.prototype){d.classList.add('is-entering');setTimeout(function(){if(!window.__entrance)d.classList.remove('is-entering')},2600)}}catch(e){}})(document.documentElement);
+</script>
 <header class="hero" id="top">
+  <div class="lids" aria-hidden="true"><i class="lid"></i><i class="lid"></i><i class="lid"></i><i class="lid"></i><i class="lid"></i><i class="lid"></i><i class="lid"></i><i class="lid"></i></div>
   <nav class="hnav">
     <span>Токарь и сварщик в Антипихе, Чита</span>
     <a class="tel js-call js-phone-text" href="#contacts">[+7 924 000-00-00]</a>
