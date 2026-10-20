@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#0C120F">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@700;900&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,74 +22,87 @@
   <symbol id="i-route" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></symbol>
   <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8M8 8l5 5M13 8l-5 5"/></g></symbol>
+  <symbol id="i-rub" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V3h6a4.5 4.5 0 0 1 0 9H6M6 16.5h9"/></g></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></g></symbol>
 </svg>
 
-<!-- 1. Первый экран -->
-<header class="band b-ink hero" id="top">
-  <div class="wrap">
-    <div class="topline">
-      <span class="logo">[ИМЯ] · токарь</span>
-      <a href="#contacts" class="js-phone-text" style="text-decoration:none">[ТЕЛЕФОН]</a>
-    </div>
-    <div style="display:grid;gap:18px">
-      <span class="where">Токарь и сварщик в Антипихе, Чита</span>
-      <h1>Сделаю деталь, <span class="gold shine">которой нет в&nbsp;продаже</span></h1>
-      <p class="lead">Не знаете, как объяснить? Объясните на пальцах, разберёмся вместе.</p>
-    </div>
+<!-- 1. Первый экран: слово вырезано в чёрной полосе, сквозь него видно фото -->
+<header class="hero" id="top" style="--hero-img:url('img/hero.jpg')">
+  <div class="hero-bg" id="heroBg"></div>
+  <nav class="hnav">
+    <span>[ИМЯ] · токарь<span class="wide"> и сварщик</span></span>
+    <span class="mid">Чита, Антипиха · Пн–пт 10–19</span>
+    <a class="call js-call" href="#contacts"><svg><use href="#i-phone"/></svg><span class="js-phone-text">Позвонить</span></a>
+  </nav>
+  <div class="cut">
+    <span class="sr">Токарь</span>
+    <svg viewBox="-26 -16 1332 250" aria-hidden="true">
+      <defs>
+        <mask id="cutMask" maskUnits="userSpaceOnUse" x="-26" y="-16" width="1332" height="250">
+          <rect x="-26" y="-16" width="1332" height="250" fill="#fff"/>
+          <text x="0" y="197" textLength="1280" lengthAdjust="spacingAndGlyphs"
+            font-family="'Druk Wide Cyr','Unbounded','Arial Black',sans-serif" font-weight="900" font-size="262" fill="#000">ТОКАРЬ</text>
+        </mask>
+      </defs>
+      <rect x="-27" y="-17" width="1334" height="252" style="fill:var(--black)" mask="url(#cutMask)"/>
+    </svg>
+  </div>
+  <div class="hcopy">
+    <h1>Сделаю деталь, которой нет в&nbsp;продаже</h1>
+    <p class="lead">Не знаете, как объяснить? Объясните на пальцах, разберёмся вместе.</p>
     <div class="btns">
       <a class="btn btn-main js-call" href="#contacts"><svg><use href="#i-phone"/></svg>Позвонить</a>
       <a class="btn btn-line js-tg" href="#contacts" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Telegram</a>
       <a class="btn btn-line js-max" href="#contacts" target="_blank" rel="noopener"><svg><use href="#i-msg"/></svg>MAX</a>
     </div>
     <div class="facts">
-      <span>от <b>1&nbsp;000&nbsp;₽</b></span>
-      <span><b>1–7</b> дней</span>
-      <span>Пн–пт <b>10:00–19:00</b></span>
+      <span>от <b>1&nbsp;000&nbsp;₽</b></span><span>·</span>
+      <span><b>1–7</b> дней</span><span>·</span>
+      <span>Антипиха, Чита</span>
     </div>
   </div>
 </header>
 
 <main>
 <!-- 2. С чем приходят -->
-<section class="band b-blue" id="pains">
+<section class="band b-ink" id="pains">
   <div class="wrap">
-    <div class="dim"><h2>Ко мне приходят, когда</h2></div>
-    <div class="pains">
-      <div class="pain"><h3>Детали нет в продаже</h3><p>Ни в магазине, ни на разборке, ни под заказ.</p></div>
-      <div class="pain"><h3>Новая стоит слишком дорого</h3><p>Или в сервисе предлагают менять узел целиком.</p></div>
-      <div class="pain"><h3>Нужна нестандартная вещь</h3><p>Под самоделку или доработку, такую нигде не купишь.</p></div>
+    <div class="head"><span class="eyebrow">С чем приходят</span><h2>Ко мне приходят, когда</h2></div>
+    <div class="cards">
+      <div class="glow g-gold"><div class="glow-in"><svg class="ico"><use href="#i-search"/></svg><h3>Детали нет в продаже</h3><p>Ни в магазине, ни на разборке, ни под заказ.</p></div></div>
+      <div class="glow g-steel"><div class="glow-in"><svg class="ico"><use href="#i-rub"/></svg><h3>Новая стоит слишком дорого</h3><p>Или в сервисе предлагают менять узел целиком.</p></div></div>
+      <div class="glow g-mix"><div class="glow-in"><svg class="ico"><use href="#i-gear"/></svg><h3>Нужна нестандартная вещь</h3><p>Под самоделку или доработку, такую нигде не купишь.</p></div></div>
     </div>
-    <p class="note">Посмотрю и скажу, можно ли сделать. Если дешевле купить новую, скажу прямо.</p>
+    <p class="note">Посмотрю и скажу, можно ли сделать. <b>Если дешевле купить новую, скажу прямо.</b></p>
   </div>
 </section>
 
 <!-- 3. Токарные + 4. Партии -->
-<section class="band b-ink" id="turning">
+<section class="band b-blue" id="turning">
   <div class="wrap">
     <div class="cols">
-      <div class="dim"><h2>Токарные работы</h2><p class="lead">Делаю по чертежу, фото, образцу или по объяснению на пальцах.</p></div>
-      <div>
-        <ul class="list">
-          <li><span>Расточка автомобильных деталей</span></li>
-          <li><span>Расточка центральных отверстий колёсных дисков до&nbsp;<span class="ph">[Д]</span>&nbsp;мм</span></li>
-          <li><span>Мелкие детали, даже совсем маленькие</span></li>
-          <li><span>Сложные детали, расточка отверстий</span></li>
-          <li><span>Детали для самоделок и техники собственной сборки</span></li>
-        </ul>
-      </div>
+      <div class="head"><span class="eyebrow">Станок</span><h2>Токарные работы</h2><p class="lead">Делаю по чертежу, фото, образцу или по объяснению на пальцах.</p></div>
+      <ul class="list">
+        <li><span>Расточка автомобильных деталей</span></li>
+        <li><span>Расточка центральных отверстий колёсных дисков до&nbsp;<span class="ph">[Д]</span>&nbsp;мм</span></li>
+        <li><span>Мелкие детали, даже совсем маленькие</span></li>
+        <li><span>Сложные детали, расточка отверстий</span></li>
+        <li><span>Детали для самоделок и техники собственной сборки</span></li>
+      </ul>
     </div>
-    <div class="batch" id="batch">
-      <h3 style="font-size:clamp(18px,3vw,26px)">Нужно много <span class="gold">одинаковых деталей?</span></h3>
+    <div class="batch glow g-gold" id="batch"><div class="glow-in">
+      <h3>Нужно много одинаковых деталей?</h3>
       <p>Для строительных компаний и автосервисов. Один раз настраиваю станок и делаю всю партию. Так быстрее, и за штуку выходит выгоднее.</p>
       <div class="btns"><a class="btn btn-main js-write" href="#contacts">Обсудить партию</a></div>
-    </div>
+    </div></div>
   </div>
 </section>
 
 <!-- 5. Сварка -->
 <section class="band b-ink2" id="welding">
   <div class="wrap cols">
-    <div class="dim"><h2>Сварка</h2><p class="lead">Варю у себя в гараже, на выезд не езжу.</p></div>
+    <div class="head"><span class="eyebrow">Гараж</span><h2>Сварка</h2><p class="lead">Варю у себя в гараже, на выезд не езжу.</p></div>
     <ul class="list weld">
       <li><span>Электродная и полуавтомат</span></li>
       <li><span>Чёрный металл, нержавейка, тонкий металл</span></li>
@@ -99,15 +112,15 @@
 </section>
 
 <!-- 6. Как работаем -->
-<section class="band b-blue" id="how">
+<section class="band b-ink" id="how">
   <div class="wrap">
-    <div class="dim"><h2>Не знаете, как объяснить? Покажите</h2></div>
+    <div class="head"><span class="eyebrow">Как работаем</span><h2>Не знаете, как объяснить? Покажите</h2></div>
     <ol class="steps">
-      <li><div><h3>Пришлите, что есть</h3><p>Фото детали, короткое видео с телефона, эскиз на любом листке. Или привезите образец. Чертёж не обязателен: можно объяснить на пальцах, и мы вместе набросаем эскиз.</p></div></li>
-      <li><div><h3>Назову цену и срок</h3><p>Если выгоднее купить новую деталь, так и скажу.</p></div></li>
-      <li><div><h3>Сделаю за 1–7 дней</h3><p>Заберёте в гараже в Антипихе.</p></div></li>
+      <li class="glow g-steel"><div class="glow-in"><span class="num">1</span><h3>Пришлите, что есть</h3><p>Фото детали, короткое видео с телефона, эскиз на любом листке. Или привезите образец. Чертёж не обязателен: можно объяснить на пальцах, и мы вместе набросаем эскиз.</p></div></li>
+      <li class="glow g-mix"><div class="glow-in"><span class="num">2</span><h3>Назову цену и срок</h3><p>Если выгоднее купить новую деталь, так и скажу.</p></div></li>
+      <li class="glow g-gold"><div class="glow-in"><span class="num">3</span><h3>Сделаю за 1–7 дней</h3><p>Заберёте в гараже в Антипихе.</p></div></li>
     </ol>
-    <div class="btns" style="margin-top:28px">
+    <div class="btns" style="margin-top:44px">
       <a class="btn btn-main js-tg" href="#contacts" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить фото в Telegram</a>
       <a class="btn btn-line js-max" href="#contacts" target="_blank" rel="noopener"><svg><use href="#i-msg"/></svg>Отправить фото в MAX</a>
     </div>
@@ -115,10 +128,10 @@
 </section>
 
 <!-- 7. Работы: карусель -->
-<section class="band b-ink" id="works">
+<section class="band b-ink2" id="works">
   <div class="wrap carousel" data-carousel>
     <div class="c-head">
-      <div class="dim"><h2>Что уже сделал</h2></div>
+      <div class="head"><span class="eyebrow">Примеры</span><h2>Что уже сделал</h2></div>
       <div class="c-nav">
         <button class="c-btn" type="button" data-prev aria-label="Предыдущие работы"><svg><use href="#i-left"/></svg></button>
         <button class="c-btn" type="button" data-next aria-label="Следующие работы"><svg><use href="#i-right"/></svg></button>
@@ -134,7 +147,7 @@
       <figure class="shot"><div class="img">[фото 7: самоделка]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
       <figure class="shot"><div class="img">[фото 8: самоделка]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
     </div>
-    <div class="dots" role="tablist" aria-label="Листать работы"></div>
+    <div class="dots" aria-label="Листать работы"></div>
   </div>
 </section>
 
@@ -142,10 +155,10 @@
 <section class="band b-blue" id="about">
   <div class="wrap master">
     <div>
-      <div class="dim"><h2>Меня зовут <span class="gold">[ИМЯ]</span></h2></div>
+      <div class="head"><span class="eyebrow">О мастере</span><h2>Меня зовут <span class="ph">[ИМЯ]</span></h2></div>
       <p>За станком 10–15 лет. Вырос в гараже с отцом: строили вездеходы на базе мотоциклов и машин, катера, собирали свои машины. Там и научился токарке и сварке, на деле, а не по учебнику.</p>
       <p>Работаю один. Задачу вы обсуждаете с тем, кто будет её делать.</p>
-      <blockquote><span class="gold">Делаю не на совесть. Совести сейчас ни у кого нет. Делаю хорошо.</span></blockquote>
+      <blockquote>Делаю не на совесть. Совести сейчас ни у кого нет. Делаю хорошо.</blockquote>
     </div>
     <div class="photos3">
       <figure class="shot"><div class="img">[руки за работой]</div></figure>
@@ -159,7 +172,7 @@
 <section class="band b-ink" id="reviews">
   <div class="wrap carousel reviews" data-carousel>
     <div class="c-head">
-      <div class="dim"><h2>Что говорят заказчики</h2></div>
+      <div class="head"><span class="eyebrow">Отзывы</span><h2>Что говорят заказчики</h2></div>
       <div class="c-nav">
         <button class="c-btn" type="button" data-prev aria-label="Предыдущие отзывы"><svg><use href="#i-left"/></svg></button>
         <button class="c-btn" type="button" data-next aria-label="Следующие отзывы"><svg><use href="#i-right"/></svg></button>
@@ -172,16 +185,16 @@
       <figure class="shot"><div class="img">[скриншот отзыва 4]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
       <figure class="shot"><div class="img">[скриншот отзыва 5]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
     </div>
-    <div class="dots" role="tablist" aria-label="Листать отзывы"></div>
+    <div class="dots" aria-label="Листать отзывы"></div>
   </div>
 </section>
 
 <!-- 10. Цены и сроки -->
 <section class="band b-blue" id="prices">
   <div class="wrap cols">
-    <div class="dim"><h2>Цены и сроки</h2><p class="lead">Точную цену назову, когда увижу деталь или фото.</p></div>
+    <div class="head"><span class="eyebrow">Цены</span><h2>Цены и сроки</h2><p class="lead">Точную цену назову, когда увижу деталь или фото.</p></div>
     <div>
-      <div class="row"><span>Минимальный заказ</span><b class="gold">от 1&nbsp;000&nbsp;₽</b></div>
+      <div class="row"><span>Минимальный заказ</span><b>от 1&nbsp;000&nbsp;₽</b></div>
       <div class="row"><span>Срок, обычно быстрее</span><b>1–7 дней</b></div>
       <div class="row"><span>Срочно</span><b>+&nbsp;доплата</b></div>
       <div class="row"><span>Выходные</span><b>× 2</b></div>
@@ -192,9 +205,9 @@
 <!-- 11. Частые вопросы -->
 <section class="band b-ink" id="faq">
   <div class="wrap">
-    <div class="dim"><h2>Не стесняйтесь спрашивать</h2></div>
+    <div class="head"><span class="eyebrow">Вопросы</span><h2>Не стесняйтесь спрашивать</h2></div>
     <div class="faqcols">
-      <div class="ask">
+      <div class="ask glow g-gold"><div class="glow-in">
         <p>Пишите, даже если:</p>
         <ul>
           <li>не знаете, как называется деталь;</li>
@@ -203,7 +216,7 @@
           <li>хотите просто узнать цену и подумать.</li>
         </ul>
         <p class="free">Спросить ничего не стоит.</p>
-      </div>
+      </div></div>
       <div>
         <details><summary>Нужен ли чертёж?</summary><p>Нет. Хватит фото, образца или объяснения на пальцах.</p></details>
         <details><summary>С каким металлом работаете?</summary><p>Сталь, нержавейка и другие металлы. Алюминий не точу.</p></details>
@@ -219,7 +232,7 @@
 <section class="band b-blue" id="contacts">
   <div class="wrap contact">
     <div>
-      <div class="dim"><h2>Пишите или звоните</h2></div>
+      <div class="head"><span class="eyebrow">Контакты</span><h2>Пишите или звоните</h2></div>
       <div class="cinfo">
         <div><small>Телефон</small><span class="big js-phone-text">[ТЕЛЕФОН]</span></div>
         <div><small>Адрес</small><span>Чита, Антипиха, <span class="ph">[АДРЕС]</span></span></div>
