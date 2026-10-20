@@ -20,13 +20,12 @@
   <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.4 4.2 2.9 11.3c-1.3.5-1.3 1.2-.2 1.6l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.8c.3-1.3-.5-1.9-1.5-1.4zM8.6 14l9.6-6.1c.5-.3.9-.1.5.2l-8.2 7.4-.3 3.4L8.6 14z"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.5 8.5 0 1 1 21 11.5z"/></symbol>
   <symbol id="i-route" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></symbol>
 </svg>
-
-<!-- КОНТАКТЫ-ЗАГЛУШКИ: заменить в одном месте ниже, в CONTACTS -->
 
 <!-- 1. Первый экран -->
 <header class="band b-ink hero" id="top">
-  <canvas id="sparks" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="topline">
       <span class="logo">[ИМЯ] · токарь</span>
@@ -34,7 +33,7 @@
     </div>
     <div style="display:grid;gap:18px">
       <span class="where">Токарь и сварщик в Антипихе, Чита</span>
-      <h1>Сделаю деталь, которой нет в&nbsp;продаже</h1>
+      <h1>Сделаю деталь, <span class="gold shine">которой нет в&nbsp;продаже</span></h1>
       <p class="lead">Не знаете, как объяснить? Объясните на пальцах, разберёмся вместе.</p>
     </div>
     <div class="btns">
@@ -52,7 +51,7 @@
 
 <main>
 <!-- 2. С чем приходят -->
-<section class="band b-sand" id="pains">
+<section class="band b-blue" id="pains">
   <div class="wrap">
     <div class="dim"><h2>Ко мне приходят, когда</h2></div>
     <div class="pains">
@@ -80,7 +79,7 @@
       </div>
     </div>
     <div class="batch" id="batch">
-      <h3 style="font-size:clamp(18px,3vw,26px)">Нужно много одинаковых деталей?</h3>
+      <h3 style="font-size:clamp(18px,3vw,26px)">Нужно много <span class="gold">одинаковых деталей?</span></h3>
       <p>Для строительных компаний и автосервисов. Один раз настраиваю станок и делаю всю партию. Так быстрее, и за штуку выходит выгоднее.</p>
       <div class="btns"><a class="btn btn-main js-write" href="#contacts">Обсудить партию</a></div>
     </div>
@@ -88,7 +87,7 @@
 </section>
 
 <!-- 5. Сварка -->
-<section class="band b-graph" id="welding">
+<section class="band b-ink2" id="welding">
   <div class="wrap cols">
     <div class="dim"><h2>Сварка</h2><p class="lead">Варю у себя в гараже, на выезд не езжу.</p></div>
     <ul class="list weld">
@@ -100,7 +99,7 @@
 </section>
 
 <!-- 6. Как работаем -->
-<section class="band b-sand" id="how">
+<section class="band b-blue" id="how">
   <div class="wrap">
     <div class="dim"><h2>Не знаете, как объяснить? Покажите</h2></div>
     <ol class="steps">
@@ -115,31 +114,38 @@
   </div>
 </section>
 
-<!-- 7. Работы -->
+<!-- 7. Работы: карусель -->
 <section class="band b-ink" id="works">
-  <div class="wrap">
-    <div class="dim"><h2>Что уже сделал</h2></div>
-    <div class="gallery">
-      <figure class="shot"><div class="img">[фото 1]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 2]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 3]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 4]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 5]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 6]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 7: самоделка]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
-      <figure class="shot"><div class="img">[фото 8: самоделка]</div><figcaption>[Что за деталь и зачем понадобилась]</figcaption></figure>
+  <div class="wrap carousel" data-carousel>
+    <div class="c-head">
+      <div class="dim"><h2>Что уже сделал</h2></div>
+      <div class="c-nav">
+        <button class="c-btn" type="button" data-prev aria-label="Предыдущие работы"><svg><use href="#i-left"/></svg></button>
+        <button class="c-btn" type="button" data-next aria-label="Следующие работы"><svg><use href="#i-right"/></svg></button>
+      </div>
     </div>
+    <div class="track" tabindex="0" aria-label="Примеры работ">
+      <figure class="shot"><div class="img">[фото 1]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 2]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 3]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 4]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 5]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 6]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 7: самоделка]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+      <figure class="shot"><div class="img">[фото 8: самоделка]</div><figcaption><b>[Название детали]</b>[Для чего понадобилась, из чего сделана]</figcaption></figure>
+    </div>
+    <div class="dots" role="tablist" aria-label="Листать работы"></div>
   </div>
 </section>
 
 <!-- 8. О мастере -->
-<section class="band b-navy" id="about">
+<section class="band b-blue" id="about">
   <div class="wrap master">
     <div>
-      <div class="dim"><h2>Меня зовут <span class="ph">[ИМЯ]</span></h2></div>
+      <div class="dim"><h2>Меня зовут <span class="gold">[ИМЯ]</span></h2></div>
       <p>За станком 10–15 лет. Вырос в гараже с отцом: строили вездеходы на базе мотоциклов и машин, катера, собирали свои машины. Там и научился токарке и сварке, на деле, а не по учебнику.</p>
       <p>Работаю один. Задачу вы обсуждаете с тем, кто будет её делать.</p>
-      <blockquote>Делаю не на совесть. Совести сейчас ни у кого нет. Делаю хорошо.</blockquote>
+      <blockquote><span class="gold">Делаю не на совесть. Совести сейчас ни у кого нет. Делаю хорошо.</span></blockquote>
     </div>
     <div class="photos3">
       <figure class="shot"><div class="img">[руки за работой]</div></figure>
@@ -149,24 +155,33 @@
   </div>
 </section>
 
-<!-- 9. Отзывы -->
+<!-- 9. Отзывы: карусель -->
 <section class="band b-ink" id="reviews">
-  <div class="wrap">
-    <div class="dim"><h2>Что говорят заказчики</h2></div>
-    <div class="reviews">
-      <figure class="shot"><div class="img">[скриншот отзыва 1]</div></figure>
-      <figure class="shot"><div class="img">[скриншот отзыва 2]</div></figure>
-      <figure class="shot"><div class="img">[скриншот отзыва 3]</div></figure>
+  <div class="wrap carousel reviews" data-carousel>
+    <div class="c-head">
+      <div class="dim"><h2>Что говорят заказчики</h2></div>
+      <div class="c-nav">
+        <button class="c-btn" type="button" data-prev aria-label="Предыдущие отзывы"><svg><use href="#i-left"/></svg></button>
+        <button class="c-btn" type="button" data-next aria-label="Следующие отзывы"><svg><use href="#i-right"/></svg></button>
+      </div>
     </div>
+    <div class="track" tabindex="0" aria-label="Отзывы">
+      <figure class="shot"><div class="img">[скриншот отзыва 1]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
+      <figure class="shot"><div class="img">[скриншот отзыва 2]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
+      <figure class="shot"><div class="img">[скриншот отзыва 3]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
+      <figure class="shot"><div class="img">[скриншот отзыва 4]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
+      <figure class="shot"><div class="img">[скриншот отзыва 5]</div><figcaption><b>[Имя заказчика]</b>[Что заказывал]</figcaption></figure>
+    </div>
+    <div class="dots" role="tablist" aria-label="Листать отзывы"></div>
   </div>
 </section>
 
 <!-- 10. Цены и сроки -->
-<section class="band b-sand" id="prices">
+<section class="band b-blue" id="prices">
   <div class="wrap cols">
     <div class="dim"><h2>Цены и сроки</h2><p class="lead">Точную цену назову, когда увижу деталь или фото.</p></div>
-    <div class="prices">
-      <div class="row"><span>Минимальный заказ</span><b>от 1&nbsp;000&nbsp;₽</b></div>
+    <div>
+      <div class="row"><span>Минимальный заказ</span><b class="gold">от 1&nbsp;000&nbsp;₽</b></div>
       <div class="row"><span>Срок, обычно быстрее</span><b>1–7 дней</b></div>
       <div class="row"><span>Срочно</span><b>+&nbsp;доплата</b></div>
       <div class="row"><span>Выходные</span><b>× 2</b></div>
@@ -201,7 +216,7 @@
 </section>
 
 <!-- 12. Контакты -->
-<section class="band b-navy" id="contacts">
+<section class="band b-blue" id="contacts">
   <div class="wrap contact">
     <div>
       <div class="dim"><h2>Пишите или звоните</h2></div>
@@ -233,7 +248,7 @@
 </div>
 <nav class="dock" aria-label="Связаться">
   <a class="btn btn-main js-call" href="#contacts"><svg><use href="#i-phone"/></svg>Позвонить</a>
-  <button class="btn btn-line" id="writeBtn" type="button" aria-expanded="false" aria-controls="sheet" style="background:none;cursor:pointer"><svg><use href="#i-msg"/></svg>Написать</button>
+  <button class="btn btn-line" id="writeBtn" type="button" aria-expanded="false" aria-controls="sheet"><svg><use href="#i-msg"/></svg>Написать</button>
 </nav>
 
 <script src="js/main.js"></script>

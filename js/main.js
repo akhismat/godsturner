@@ -13,41 +13,42 @@ const CONTACTS = {
   set(".js-max", CONTACTS.max);
   set(".js-route", CONTACTS.route);
   if(CONTACTS.phoneText) document.querySelectorAll(".js-phone-text").forEach(e=>e.textContent=CONTACTS.phoneText);
-  document.querySelectorAll(".js-write").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toggle(true)}));
 
   const btn=document.getElementById("writeBtn"), sheet=document.getElementById("sheet");
   function toggle(force){const open=force!==undefined?force:sheet.hidden;sheet.hidden=!open;btn.setAttribute("aria-expanded",open)}
   btn.addEventListener("click",()=>toggle());
   sheet.addEventListener("click",e=>{if(e.target.closest("a")) toggle(false)});
   document.addEventListener("keydown",e=>{if(e.key==="Escape") toggle(false)});
+  document.querySelectorAll(".js-write").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toggle(true)}));
 })();
 
-/* ===== Искры на первом экране ===== */
-(function(){
-  const c=document.getElementById("sparks"); if(!c||!c.getContext) return;
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const x=c.getContext("2d"); let w,h,dpr,ps=[],run=true;
-  function size(){dpr=Math.min(window.devicePixelRatio||1,2);w=c.offsetWidth;h=c.offsetHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
-  size(); addEventListener("resize",size);
-  function spawn(){
-    const ox=w*0.92, oy=h*0.88;
-    const a=Math.PI*(1.05+Math.random()*0.5), v=2+Math.random()*5;
-    ps.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:0,m:40+Math.random()*50});
+/* ===== Карусели: работы и отзывы ===== */
+document.querySelectorAll("[data-carousel]").forEach(root=>{
+  const track=root.querySelector(".track"), items=[...track.children];
+  const prev=root.querySelector("[data-prev]"), next=root.querySelector("[data-next]");
+  const dotsBox=root.querySelector(".dots");
+  const perView=()=>{const w=items[0].getBoundingClientRect().width||1;return Math.max(1,Math.round(track.clientWidth/w))};
+  const step=()=>items.length>1?items[1].offsetLeft-items[0].offsetLeft:track.clientWidth;
+  let dots=[];
+  function buildDots(){
+    const pages=Math.max(1,items.length-perView()+1);
+    if(dots.length===pages) return;
+    dotsBox.innerHTML="";
+    dots=[...Array(pages)].map((_,i)=>{const d=document.createElement("button");d.type="button";d.className="dot";d.setAttribute("aria-label","Слайд "+(i+1));
+      d.addEventListener("click",()=>track.scrollTo({left:i*step(),behavior:"smooth"}));dotsBox.appendChild(d);return d});
+    dotsBox.hidden=pages<2;
   }
-  function tick(){
-    if(!run) return;
-    for(let i=0;i<3;i++) spawn();
-    x.clearRect(0,0,w,h);
-    x.globalCompositeOperation="lighter";
-    for(let i=ps.length-1;i>=0;i--){
-      const p=ps[i]; p.l++; p.vy+=0.09; p.vx*=0.995;
-      const px=p.x,py=p.y; p.x+=p.vx; p.y+=p.vy;
-      const t=1-p.l/p.m;
-      if(t<=0||p.y>h+10){ps.splice(i,1);continue}
-      x.strokeStyle=`rgba(${222},${170+Math.round(60*t)},${110*t},${t*0.85})`;
-      x.lineWidth=1.2; x.beginPath(); x.moveTo(px-p.vx*1.5,py-p.vy*1.5); x.lineTo(p.x,p.y); x.stroke();
-    }
-    requestAnimationFrame(tick);
+  function update(){
+    buildDots();
+    const i=Math.round(track.scrollLeft/step());
+    dots.forEach((d,k)=>d.setAttribute("aria-current",k===Math.min(i,dots.length-1)));
+    prev.disabled=track.scrollLeft<4;
+    next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;
   }
-  new IntersectionObserver(es=>{run=es[0].isIntersecting; if(run) requestAnimationFrame(tick)}).observe(c);
-})();
+  prev.addEventListener("click",()=>track.scrollBy({left:-step(),behavior:"smooth"}));
+  next.addEventListener("click",()=>track.scrollBy({left:step(),behavior:"smooth"}));
+  track.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();next.click()}if(e.key==="ArrowLeft"){e.preventDefault();prev.click()}});
+  let t;track.addEventListener("scroll",()=>{cancelAnimationFrame(t);t=requestAnimationFrame(update)},{passive:true});
+  addEventListener("resize",update);
+  update();
+});
