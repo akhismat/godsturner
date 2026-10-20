@@ -27,39 +27,83 @@ function layoutCuts(){
     svg.setAttribute("viewBox",`0 0 ${W} ${H}`);svg.style.height=H+"px";
   });
 }
-(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>{layoutCuts();paintBg()});
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>{layoutCuts();setupBackground()});
 layoutCuts();
 let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(layoutCuts,120)});
 
-/* ===== Общий фон страницы. Пока нет фото (img/bg.jpg), рисуется заставка: синий металл, блики и искры по всей длине ===== */
-function paintBg(){
-  const el=document.getElementById("pageBg");if(!el)return;
+/* ===== Общий фон страницы =====
+   Порядок: видео (video/bg.mp4), если есть и запускается без ошибок → иначе картинка (img/bg.jpg) → иначе дым по умолчанию.
+   Пути считаются от index.html. Чтобы отключить видео или картинку, оставьте пустую строку. */
+const BG = { video: "video/bg.mp4", image: "img/bg.jpg" };
+
+function bgUrl(path){ return new URL(path, document.baseURI).href; }
+
+function useVideo(el){
+  return new Promise(ok=>{
+    if(!BG.video || matchMedia("(prefers-reduced-motion: reduce)").matches) return ok(false);
+    const v=document.createElement("video");
+    v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=true; v.preload="auto";
+    v.setAttribute("muted",""); v.setAttribute("playsinline","");
+    let done=false; const finish=r=>{ if(done) return; done=true; if(!r) v.remove(); ok(r); };
+    v.addEventListener("error",()=>finish(false));
+    v.addEventListener("loadeddata",()=>{
+      const p=v.play();
+      (p&&p.then?p:Promise.resolve()).then(()=>{ v.classList.add("on"); finish(true); }).catch(()=>finish(false));
+    });
+    setTimeout(()=>finish(false),8000);          // слишком долго грузится — не ждём
+    v.src=bgUrl(BG.video); el.appendChild(v);
+  });
+}
+function useImage(el){
+  return new Promise(ok=>{
+    if(!BG.image) return ok(false);
+    const im=new Image(), url=bgUrl(BG.image);
+    im.onload=()=>{ el.style.setProperty("--img",`url("${url}")`); ok(true); };
+    im.onerror=()=>ok(false);
+    im.src=url;
+  });
+}
+
+/* Дым по умолчанию: шум с завихрениями, считается один раз в маленьком размере и растягивается на страницу */
+function paintSmoke(el){
   try{
-    // небольшая картинка, растянутая на всю страницу (background-size:100% 100%);
-    // круги рисуются заранее сплюснутыми, чтобы после растяжения остаться круглыми
     const pw=el.clientWidth||innerWidth, ph=el.clientHeight||4000;
-    const W=600,H=2400,sx=pw/W,sy=ph/H,k=sx/sy;
+    const W=300,H=1200,sx=pw/W,sy=ph/H;
     const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
-    let s=12345;const r=()=>(s=(s*16807)%2147483647)/2147483647;
-    const SPARK=["255,246,220","255,201,74","240,138,36"];
-    const g=x.createLinearGradient(0,0,0,H);
-    g.addColorStop(0,"#2E77A4");for(let i=1;i<=12;i++) g.addColorStop(i/12,i%2?"#133D56":"#1C597E");
-    x.fillStyle=g;x.fillRect(0,0,W,H);
-    x.filter="blur(24px)";
-    for(let i=0;i<26;i++){const cx=r()*W,w=20+r()*60,a=.15+r()*.3,y=r()*H;
-      const lg=x.createLinearGradient(cx-w,0,cx+w,0);lg.addColorStop(0,"rgba(200,225,240,0)");lg.addColorStop(.5,`rgba(200,225,240,${a})`);lg.addColorStop(1,"rgba(200,225,240,0)");
-      x.fillStyle=lg;x.fillRect(cx-w,y,w*2,(500+r()*900)/sy)}
-    x.filter="none";
-    const n=Math.round(ph/7);   // плотность бликов на странице
-    for(let i=0;i<n;i++){
-      const px=r()*W,py=r()*H,rad=(5+r()*26)/sx,a=.25+r()*.55,col=SPARK[i%3];
-      x.save();x.scale(1,k);const cy=py/k;
-      const rg=x.createRadialGradient(px,cy,0,px,cy,rad);
-      rg.addColorStop(0,`rgba(${col},${a})`);rg.addColorStop(.55,`rgba(${col},${a*.7})`);rg.addColorStop(1,`rgba(${col},0)`);
-      x.fillStyle=rg;x.beginPath();x.arc(px,cy,rad,0,7);x.fill();x.restore();
+    const img=x.createImageData(W,H),d=img.data;
+    const hash=(i,j)=>{let h=i*374761393+j*668265263;h=(h^(h>>>13))*1274126177;return ((h^(h>>>16))>>>0)/4294967295};
+    const sm=t=>t*t*(3-2*t);
+    const noise=(px,py)=>{const i=Math.floor(px),j=Math.floor(py),fx=sm(px-i),fy=sm(py-j);
+      const a=hash(i,j),b=hash(i+1,j),cc=hash(i,j+1),dd=hash(i+1,j+1);
+      return a+(b-a)*fx+(cc-a)*fy+(a-b-cc+dd)*fx*fy};
+    const fbm=(px,py)=>{let v=0,a=.5;for(let o=0;o<5;o++){v+=a*noise(px,py);px=px*2.03+17.1;py=py*2.03+9.7;a*=.5}return v};
+    const S=520;   // размер клубов в пикселях страницы
+    for(let j=0;j<H;j++){
+      const yPage=j*sy, top=Math.max(0,1-yPage/1100);      // на первом экране дым гуще и светлее
+      for(let i=0;i<W;i++){
+        const px=i*sx/S, py=yPage/S;
+        const qx=fbm(px,py), qy=fbm(px+5.2,py+1.3);
+        const f=fbm(px+3.2*qx,py+3.2*qy);
+        let s=Math.min(1,Math.max(0,(f-.38)/.42)); s=s*s*(3-2*s);
+        s=.22+.78*s*(.8+.2*top);                         // дым есть по всей длине, чтобы буквы всегда читались
+        const warm=Math.max(0,qx-.55)*1.4;                  // тёплый отсвет искр местами
+        const k=(j*W+i)*4;
+        d[k]  =8 +s*(150+warm*90);
+        d[k+1]=17+s*(165+warm*40);
+        d[k+2]=14+s*(175-warm*60);
+        d[k+3]=255;
+      }
     }
-    el.style.setProperty("--fb",`url(${c.toDataURL("image/jpeg",.85)})`);
+    x.putImageData(img,0,0);
+    el.style.setProperty("--fb",`url(${c.toDataURL("image/jpeg",.88)})`);
   }catch(e){}
+}
+
+async function setupBackground(){
+  const el=document.getElementById("pageBg"); if(!el) return;
+  if(await useVideo(el)) return;
+  if(await useImage(el)) return;
+  paintSmoke(el);
 }
 
 /* ===== Карусели: работы и отзывы ===== */
