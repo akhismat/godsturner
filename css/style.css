@@ -119,6 +119,7 @@ p{margin:0;max-width:62ch}
   background:repeating-linear-gradient(135deg,rgba(244,238,226,.045) 0 10px,transparent 10px 20px),var(--card);
   display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:12px;border:1px solid var(--line)}
 .img img{width:100%;height:100%;object-fit:cover;display:block}
+.img:has(img){padding:0;background:var(--card)}  /* с настоящим фото — без полей и штриховки */
 .shot figcaption{display:grid;gap:3px;font-size:15px;font-weight:300;color:var(--muted)}
 .shot figcaption b{color:var(--text);font-weight:500;font-size:16px}
 
