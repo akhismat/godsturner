@@ -1,17 +1,34 @@
 /* ===== Контакты: заполнить, когда мастер пришлёт ===== */
 const CONTACTS = {
-  phone: "",      // для звонка, например "+79140000000"
-  phoneText: "",  // как показать, например "+7 914 000-00-00"
-  max: "",        // ссылка на профиль в MAX
+  phone: "+79333833033",          // для звонка
+  phoneText: "+7 933 383-30-33",  // как показать
+  // MAX не умеет открывать чат по номеру телефона и подставлять текст в чат конкретному человеку.
+  // Поэтому кнопка копирует приветствие в буфер и открывает профиль мастера — остаётся вставить и отправить.
+  // Ссылка на профиль: в MAX → Профиль → Поделиться → Скопировать ссылку (вида https://max.ru/u/...).
+  max: "",
+  maxText: "Здравствуйте! Я с вашего сайта, хочу обсудить заказ.",
   route: ""       // ссылка «Построить маршрут» на точку гаража
 };
 (function(){
   const set=(sel,href)=>{ if(!href) return; document.querySelectorAll(sel).forEach(a=>a.href=href); };
   set(".js-call", CONTACTS.phone && "tel:"+CONTACTS.phone);
   set(".js-max", CONTACTS.max);
+  // кнопки MAX: скопировать приветствие и открыть профиль
+  const toast=document.createElement("div");toast.className="toast";toast.setAttribute("role","status");document.body.appendChild(toast);
+  let tt;const say=(msg)=>{toast.textContent=msg;toast.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove("on"),4200)};
+  document.querySelectorAll(".js-max").forEach(a=>a.addEventListener("click",e=>{
+    if(!CONTACTS.max){e.preventDefault();say("Ссылка на MAX скоро появится. Пока позвоните: "+(CONTACTS.phoneText||""));return;}
+    try{navigator.clipboard.writeText(CONTACTS.maxText).then(()=>say("Текст скопирован. Вставьте его в чат и отправьте"),()=>{});}catch(err){}
+  }));
   set(".js-route", CONTACTS.route);
   if(CONTACTS.phoneText) document.querySelectorAll(".js-phone-text").forEach(e=>e.textContent=CONTACTS.phoneText);
 })();
+
+/* ===== Фото: если файла ещё нет, вместо битой картинки — подпись с путём, куда его положить ===== */
+document.querySelectorAll(".img img[data-ph]").forEach(im=>{
+  const ph=()=>{const box=im.closest(".img"); if(box) box.textContent=im.dataset.ph;};
+  if(im.complete && !im.naturalWidth && im.currentSrc) ph(); else im.addEventListener("error",ph,{once:true});
+});
 
 /* ===== Слова-вырезы: буквы во всю ширину колонки ===== */
 function layoutCuts(){

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://akhismat.github.io/godsturner/sitemap.xml
