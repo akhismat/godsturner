@@ -28,6 +28,8 @@ const CONTACTS = {
 document.querySelectorAll(".img img[data-ph]").forEach(im=>{
   const ph=()=>{const box=im.closest(".img"); if(box) box.textContent=im.dataset.ph;};
   if(im.complete && !im.naturalWidth && im.currentSrc) ph(); else im.addEventListener("error",ph,{once:true});
+  // для размытого фона вокруг фото работ
+  const box=im.closest(".img"); if(box) box.style.setProperty("--src",`url("${new URL(im.getAttribute("src"),document.baseURI).href}")`);
 });
 
 /* ===== Слова-вырезы: буквы во всю ширину колонки ===== */

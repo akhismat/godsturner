@@ -135,7 +135,16 @@ p{margin:0;max-width:62ch}
 .track{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .track::-webkit-scrollbar{display:none}
 .track > *{scroll-snap-align:start;min-width:0}
-.reviews .img{aspect-ratio:3/4}
+/* работы: фото целиком, поля — та же фотография, увеличенная и размытая */
+#works .img{aspect-ratio:4/3;position:relative;isolation:isolate}
+#works .img::before{content:"";position:absolute;inset:-24px;z-index:-1;background:var(--src,none) center/cover no-repeat;filter:blur(22px) brightness(.7) saturate(1.1)}
+#works .img img{object-fit:contain}
+/* отзывы: скриншот по ширине карточки, по центру, сверху и снизу белое поле.
+   Пропорция — по самому высокому скриншоту (747×508), поэтому все влезают в одном масштабе и шрифт везде одного размера */
+.reviews .img{aspect-ratio:747/510}
+.reviews .img:has(img){background:#fff;border-color:#fff}
+.reviews .img img{object-fit:contain}
+.reviews .track{grid-auto-columns:92%}
 .dots{display:flex;justify-content:center;gap:8px}
 .dot{width:7px;height:7px;border-radius:999px;border:0;padding:0;background:rgba(244,238,226,.25);cursor:pointer;transition:width .25s,background .25s}
 .dot[aria-current="true"]{width:24px;background:var(--spark)}
@@ -194,6 +203,7 @@ footer{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16
 
 @media (min-width:600px){
   .track{grid-auto-columns:calc((100% - 14px)/2)}
+  .reviews .track{grid-auto-columns:calc((100% - 14px)/2)}
 }
 @media (min-width:860px){
   .hnav{font-size:14.5px}
@@ -204,7 +214,7 @@ footer{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16
   .cols{grid-template-columns:5fr 7fr;gap:64px}
   .steps{grid-template-columns:repeat(3,1fr);gap:14px;padding:0}
   .track{grid-auto-columns:calc((100% - 42px)/4)}
-  .reviews .track{grid-auto-columns:calc((100% - 28px)/3)}
+  .reviews .track{grid-auto-columns:calc((100% - 14px)/2)}
   .master{grid-template-columns:7fr 5fr;gap:64px;align-items:start}
   .contact{grid-template-columns:5fr 7fr;gap:64px}
   .faqcols{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start}
