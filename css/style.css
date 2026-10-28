@@ -138,11 +138,11 @@ p{margin:0;max-width:62ch}
 /* работы: фото целиком, поля — та же фотография, увеличенная и размытая */
 #works .img{aspect-ratio:4/3;position:relative;isolation:isolate}
 #works .img::before{content:"";position:absolute;inset:-24px;z-index:-1;background:var(--src,none) center/cover no-repeat;filter:blur(22px) brightness(.7) saturate(1.1)}
-#works .img img{object-fit:contain}
+#works .img img,.reviews .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 /* отзывы: скриншот по ширине карточки, по центру, сверху и снизу белое поле.
    Пропорция — по самому высокому скриншоту (747×508), поэтому все влезают в одном масштабе и шрифт везде одного размера */
 .reviews .img{aspect-ratio:747/510}
-.reviews .img:has(img){background:#fff;border-color:#fff}
+.reviews .img:has(img){background:#fff;border-color:#fff;position:relative}
 .reviews .img img{object-fit:contain}
 .reviews .track{grid-auto-columns:92%}
 .dots{display:flex;justify-content:center;gap:8px}
