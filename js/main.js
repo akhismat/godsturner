@@ -171,6 +171,7 @@ document.querySelectorAll("[data-carousel]").forEach(root=>{
     function rise(px){ return [{opacity:0,transform:'translateY('+px+'px)'},{opacity:1,transform:'none'}]; }
     [].forEach.call(document.querySelectorAll('.lid'),function(l,i){ play(l,[{opacity:1,transform:'scaleY(1)'},{opacity:1,transform:'scaleY(0)'}],.06+i*.05,1.0,QUART); });
     [].forEach.call(document.querySelectorAll('.hnav > *'),function(el,i){ play(el,rise(6),.50+i*.12,.6); });
+    play(q('.hcopy .kicker'),rise(8),.70,.6);
     play(q('.hcopy h1'),[{opacity:1,transform:'translateY(100%)',clipPath:'inset(-100% -8px 100% -8px)'},{opacity:1,transform:'none',clipPath:'inset(-20% -8px -20% -8px)'}],.80,1.0);
     play(q('.hcopy .lead'),rise(8),1.05,.7);
     play(q('.facts'),rise(8),1.15,.7);
